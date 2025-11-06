@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TitleSceneManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
 
     // This class should manage the transition to another scene, we should implement this to all the scenes we make.
-    private static TitleSceneManager _instance;
-    public static TitleSceneManager Instance { get { return _instance; } }
+    private static GameManager _instance;
+    public static GameManager Instance { get { return _instance; } }
+
+    bool isPaused = false;
     
 
     void Awake()
@@ -14,6 +16,7 @@ public class TitleSceneManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -38,5 +41,12 @@ public class TitleSceneManager : MonoBehaviour
     public void ChangeSceneByIndex(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
+    }
+
+
+    public void QuitGame()
+    {
+        Debug.Log("Uscita dal gioco...");
+        Application.Quit();
     }
 }

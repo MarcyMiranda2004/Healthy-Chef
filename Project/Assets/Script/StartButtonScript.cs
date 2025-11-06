@@ -7,12 +7,11 @@ public class StartButtonScript : MonoBehaviour
     //This class is used to change the scene using the button, it should call the instance of the Manager and its method in order to change scene
 
     
-    // Update is called once per frame
-    void Update()
+
+    void Start()
     {
         GetComponent<Button>().onClick.AddListener(() => ChangingScene("PresentationScene"));
     }
-
 
     void ChangingScene(string sceneName)
     {

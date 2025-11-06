@@ -19,57 +19,57 @@ public class TypewriterEffect : MonoBehaviour
 
     private void Awake()
     {
-        if (dialogoText1 == null) dialogoText1 = GetComponent<TextMeshProUGUI>();
+        if (dialogoText1 == null) dialogoText1 = GetComponent<TextMeshProUGUI>(); // recupera il Text Mesh Pro se non viene assegnato
 
         if (dialogoText1 == null) Debug.LogError("Nessun TextMeshProUGUI assegnato al TypewriterEffect!");
         else dialogoText1.text = "";
     }
 
-    public void ShowText(string textToShow)
+    public void ShowText(string textToShow) // prende il contenuto del fil txt come stringa
     {
-        fullText = textToShow;
+        fullText = textToShow; // prende il testo come stringa
 
-        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine); // se la typingCoroutine non esiste ferma la Coroutine 
 
-        typingCoroutine = StartCoroutine(TypeText());
+        typingCoroutine = StartCoroutine(TypeText()); // avvia la Coroutine e lancia il metodo TypeText
     }
 
     private IEnumerator TypeText()
     {
-        if (dialogoText1 == null) yield break;
+        if (dialogoText1 == null) yield break; // si ferma se il testo è null
 
         isTyping = true;
         skipRequested = false;
 
-        var sb = new StringBuilder();
-        dialogoText1.text = "";
+        var sb = new StringBuilder(); // crea lo StringBuilder che serve per costruire le stringhe nel text mesh pro
+        dialogoText1.text = ""; // si assicura che il text mesh pro sia vuoto prima di iniziare a scrivere
 
-        foreach (char c in fullText)
+        foreach (char c in fullText) // fa un foreach basato sula testo intero
         {
-            if (skipRequested)
+            if (skipRequested) // controlla se c'è la skipRequested (skipRequested == true) e in caso ferma l'animazione
             {
                 dialogoText1.text = fullText;
                 break;
             }
 
-            sb.Append(c);
-            dialogoText1.text = sb.ToString();
+            sb.Append(c); // "appende" ogni carattere per stamparlo
+            dialogoText1.text = sb.ToString(); // converte ogni stringa per stamparla
 
-            while (Time.timeScale == 0f) yield return null;
+            while (Time.timeScale == 0f) yield return null; // quando il gioco è in pausa la scrittura si ferma
 
-            yield return new WaitForSeconds(typeSpeed);
+            yield return new WaitForSeconds(typeSpeed); // aspetta typeSpeed secondi prima di stampare il carattere successivo
         }
 
-        isTyping = false;
-        skipRequested = false;
+        isTyping = false; // ferma la scrittura che
+        skipRequested = false; // ferma la skipRequested
     }
 
-    public void SkipTypingAnimation()
+    public void SkipTypingAnimation() // se vene chiamato mentre isTyping è attivo (isTyping == true) allora rende attiva la skipRequested
     {
         if (isTyping) skipRequested = true;
     }
 
-    public bool IsTyping()
+    public bool IsTyping() // ritorna lo stato della isTyping
     {
         return isTyping;
     }

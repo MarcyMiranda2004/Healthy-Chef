@@ -14,18 +14,17 @@ public class Question
 
 public class QuizManager : MonoBehaviour
 {
-    [Header("Riferimenti UI")]
+
     public TMP_Text DomandeText;
     public Button[] BottoneRisposta;
     public TMP_Text feedbackText;
 
-    [Header("Dati")]
     public TextAsset txtFile;
 
     private List<Question> Domande = new List<Question>();
     private Question domandaCorrente;
     private int indiceDomanda = 0;
-    private int risposteCorrette = 0; // Contatore risposte corrette
+    private int risposteCorrette = 0;
 
     void Start()
     {
@@ -71,7 +70,7 @@ public class QuizManager : MonoBehaviour
         domandaCorrente = Domande[indiceDomanda];
         DomandeText.text = domandaCorrente.question;
 
-        // mescola risposte mantenendo la corretta
+        // Mescola risposte mantenendo la corretta
         int correctIndexOriginale = domandaCorrente.correctIndex;
         string[] risposteOriginali = domandaCorrente.answers;
 
@@ -79,6 +78,7 @@ public class QuizManager : MonoBehaviour
         for (int i = 0; i < risposteOriginali.Length; i++)
             indici.Add(i);
 
+        // Mescola la lista degli indici
         for (int i = 0; i < indici.Count; i++)
         {
             int rnd = Random.Range(0, indici.Count);
@@ -105,7 +105,7 @@ public class QuizManager : MonoBehaviour
         }
 
         feedbackText.text = "";
-        feedbackText.alpha = 0; // Reset trasparenza feedback
+        feedbackText.alpha = 0; // reset trasparenza
     }
 
     void CheckAnswer(int selectedIndex, int correctIndex)
@@ -113,37 +113,42 @@ public class QuizManager : MonoBehaviour
         if (selectedIndex == correctIndex)
         {
             feedbackText.text = "Corretto!";
-            feedbackText.color = Color.green; // Colore verde per risposta corretta
-            risposteCorrette++; // Incrementa punteggio
+            feedbackText.color = Color.green;
+            risposteCorrette++;
         }
         else
         {
             feedbackText.text = "Sbagliato!";
-            feedbackText.color = Color.orange; // Colore rosso per risposta sbagliata
+            feedbackText.color = Color.red;
         }
 
-        //avvia animazione di comparsa
+        // Avvia animazione di comparsa feedback
         StopAllCoroutines();
         StartCoroutine(FadeInFeedback());
 
+        // Passa alla prossima domanda dopo un breve ritardo
         indiceDomanda++;
         Invoke(nameof(ShowNextQuestion), 1.5f);
     }
 
-    // Animazione di fade-in per il feedback
+    // Effetto di fade-in + "pop" del testo feedback
     IEnumerator FadeInFeedback()
     {
-        float duration = 0.5f; // Durata animazione
+        float duration = 0.5f;
         float elapsed = 0f;
         feedbackText.alpha = 0f;
+        feedbackText.transform.localScale = Vector3.one * 0.8f;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            feedbackText.alpha = Mathf.Lerp(0f, 1f, elapsed / duration);
+            float t = elapsed / duration;
+            feedbackText.alpha = Mathf.Lerp(0f, 1f, t);
+            feedbackText.transform.localScale = Vector3.Lerp(Vector3.one * 0.8f, Vector3.one, t);
             yield return null;
         }
 
         feedbackText.alpha = 1f;
+        feedbackText.transform.localScale = Vector3.one;
     }
 }

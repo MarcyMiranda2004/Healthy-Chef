@@ -9,6 +9,7 @@ public class VisualNovelDialogue : MonoBehaviour
     private string[] lines;
     private int currentLineIndex = 0;
     private bool isActive = false;
+    private float originalTimeScale = 1f;
 
     void Start()
     {
@@ -29,6 +30,8 @@ public class VisualNovelDialogue : MonoBehaviour
         isActive = true;
         currentLineIndex = 0;
         ShowLine();
+        originalTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
     }
 
     void Update()
@@ -66,6 +69,7 @@ public class VisualNovelDialogue : MonoBehaviour
     {
         dialogPanel.SetActive(false);
         isActive = false;
+        Time.timeScale = originalTimeScale;
         Debug.Log("Dialogo terminato!");
     }
 }

@@ -1,8 +1,18 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class Raccolta : MonoBehaviour
 {
+    public static Raccolta Instance;
+
     public float effectDuration = 5f;
+    public static event Action<string> OnEventiChanged;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -10,36 +20,38 @@ public class Raccolta : MonoBehaviour
         {
             Destroy(other.gameObject);
             PointManager.Instance.AddPoint();
+            OnEventiChanged?.Invoke("Hai raccolto un frutto!");
         }
         else if (other.CompareTag("JunkFood"))
         {
-            Debug.Log("Hai Bevuto del cibo spazzature!");
             Destroy(other.gameObject);
             PointManager.Instance.menusPoints();
+            OnEventiChanged?.Invoke("Hai raccolto del cibo spazzatura!");
         }
         else if (other.CompareTag("Malus"))
         {
-            Debug.Log("Hai Bevuto del alcool!");
-
             Destroy(other.gameObject);
 
             Movimento2D movimento = GetComponent<Movimento2D>();
-
             if (movimento != null)
-            {
                 movimento.InvertControls(effectDuration);
-            }
-            else
-            {
-                Debug.LogWarning("Movimento2D non trovato sul player!");
-            }
+
+            OnEventiChanged?.Invoke("Hai bevuto alcool! Comandi invertiti per 5 secondi!");
         }
         else if (other.CompareTag("Bonus"))
         {
-            Debug.Log("Hai mangiato del cibo molto sano!");
-
             Destroy(other.gameObject);
             PointManager.Instance.AddPointX2();
+            OnEventiChanged?.Invoke("Hai mangiato del cibo molto sano! Punti x2!");
+        }
+        else if (other.CompareTag("SpeedUp"))
+        {
+            Destroy(other.gameObject);
+            Movimento2D movimento = GetComponent<Movimento2D>();
+            if (movimento != null)
+                movimento.moveSpeed *= 2;
+            PointManager.Instance.menusPoints();
+            OnEventiChanged?.Invoke("Hai raccolto qualcosa di sbagliato!");
         }
     }
 }

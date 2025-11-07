@@ -1,8 +1,15 @@
+using System;
+using System.Collections;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PointManager : MonoBehaviour
 {
     public static PointManager Instance;
+    [SerializeField] private GameObject WinSprite;
+    [SerializeField] private TextMeshProUGUI puntiText;
+    [SerializeField] private TextMeshProUGUI eventiText;
 
     private float points = 0;
 
@@ -12,6 +19,7 @@ public class PointManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            WinSprite.SetActive(false);
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -23,6 +31,7 @@ public class PointManager : MonoBehaviour
     public void AddPoint()
     {
         points++;
+        CheckPoints();
         Debug.Log("Punti totali: " + points);
     }
 
@@ -34,12 +43,33 @@ public class PointManager : MonoBehaviour
     public void menusPoints()
     {
         points--;
+        CheckPoints();
         Debug.Log("Punti totali: " + points);
     }
 
     public void AddPointX2()
     {
         points += 2;
+        CheckPoints();
         Debug.Log("Punti totali: " + points);
+    }
+
+    public void CheckPoints()
+    {
+        if (points >= 5)
+        {
+            Debug.Log("Hai raggiunto il punteggio necessario!");
+            StartCoroutine(Win());
+        }
+    }
+
+    private IEnumerator Win()
+    {
+        WinSprite.SetActive(true);
+        puntiText.gameObject.SetActive(false);
+        eventiText.gameObject.SetActive(false);
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(2f);
+        GameManager.Instance.ChangeScene("MenuVittoria");
     }
 }

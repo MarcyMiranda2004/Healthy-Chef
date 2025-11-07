@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 791, y: 218}
+  m_AnchoredPosition: {x: 790, y: 562}
   m_SizeDelta: {x: 186.4, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &224905298
@@ -578,7 +578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.76, y: -0.48}
+  m_AnchoredPosition: {x: -2, y: 0}
   m_SizeDelta: {x: 136.72, y: 27.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &636265430
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.22901154, y: 0.10872937, z: 0.17078781, w: 0}
+  m_margin: {x: -17.10038, y: 0.10872937, z: -11.099773, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -806,7 +806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 800, y: -130.99994}
+  m_AnchoredPosition: {x: 800, y: 200}
   m_SizeDelta: {x: 186.4, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &774987187
@@ -1251,7 +1251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 795, y: 589}
+  m_AnchoredPosition: {x: 795, y: -200}
   m_SizeDelta: {x: 186.4, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1152151372
@@ -1371,8 +1371,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -827, y: 24}
-  m_SizeDelta: {x: -1683.47, y: -903.4}
+  m_AnchoredPosition: {x: -737, y: 30}
+  m_SizeDelta: {x: -1526.0049, y: -817.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1590985527
 MonoBehaviour:
@@ -1701,10 +1701,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 2560, y: 1440}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1863,7 +1863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 800, y: -562.9999}
+  m_AnchoredPosition: {x: 790, y: -562}
   m_SizeDelta: {x: 186.4, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2125033623

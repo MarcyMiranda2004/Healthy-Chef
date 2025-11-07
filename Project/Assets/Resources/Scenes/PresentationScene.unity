@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &119753453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119753455}
+  - component: {fileID: 119753454}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &119753454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119753453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfec62c868138b042b18e776db00bc5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+--- !u!4 &119753455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119753453}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1004.0413, y: 410.3905, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &178016862
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,12 +605,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414459e3c32323144af83c72d66a0a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PresentationSceneManager
-  tonySprite: {fileID: 282231491}
-  baloonSprite1: {fileID: 1852198575}
+  animationManager: {fileID: 0}
   dialogoText1: {fileID: 1183633648}
-  dialogueFile: {fileID: 4900000, guid: e73dbe5e9ffd0e14590499a89d0e7819, type: 3}
   twE: {fileID: 332752432}
-  nextBtn: {fileID: 1627334865}
+  dialogueFiles: []
+  nextSceneName: 
 --- !u!4 &787828683
 Transform:
   m_ObjectHideFlags: 0
@@ -1379,6 +1422,7 @@ SceneRoots:
   - {fileID: 1521076496}
   - {fileID: 787828683}
   - {fileID: 332752433}
+  - {fileID: 119753455}
   - {fileID: 549150466}
   - {fileID: 378590637}
   - {fileID: 1829683575}

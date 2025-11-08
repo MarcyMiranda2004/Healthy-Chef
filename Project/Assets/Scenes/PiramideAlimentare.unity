@@ -905,7 +905,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 73e36702d19264d46af1008c504e0096, type: 3}
   - {fileID: 4900000, guid: 85540f5f284b58b419f726f5281b516a, type: 3}
   - {fileID: 4900000, guid: e418dff2496d5bd43beaf560abe1a1eb, type: 3}
-  nextSceneName: 
+  nextSceneName: Piramide
 --- !u!1 &2038049788
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,11 +21,14 @@ EditorBuildSettings:
     path: Assets/Scenes/AlimentazioneSalutareScene.unity
     guid: b814b980b1617be41933b3a488172a21
   - enabled: 1
-    path: Assets/Scenes/PiramideAlimentareDietaScene.unity
+    path: Assets/Scenes/ScelteAlimentari.unity
     guid: 1fe4e306e73a80047b4bd2cea1239ffe
   - enabled: 1
     path: Assets/Scenes/Quiz.unity
     guid: aa9a14112bc962b4ab8026583a58eea2
+  - enabled: 1
+    path: Assets/Scenes/Piramide.unity
+    guid: 13f36370e49de314bae83be2ebba8a28
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

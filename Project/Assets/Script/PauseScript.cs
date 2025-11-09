@@ -24,12 +24,11 @@ public class PauseScript : MonoBehaviour
         isPaused = true;
         if (pauseMenuUI != null)
         {
-            pauseMenuUI.SetActive(true); 
-            print("sto mettendo in pausa correttamente");// Mostra il menu pausa
+            pauseMenuUI.SetActive(true);
+            print("sto mettendo in pausa correttamente"); // Mostra il menu pausa
         }
-            
+        AudioListener.pause = false;
     }
-
 
     public void ResumeGame()
     {
@@ -40,13 +39,11 @@ public class PauseScript : MonoBehaviour
             pauseMenuUI.SetActive(false);
             print("ho premuto resume correttamente"); // Nasconde il menu pausa
         }
-            
     }
-    
+
     public void QuitGame()
     {
         Debug.Log("Uscita dal gioco...");
         Application.Quit();
     }
-
 }

@@ -1,118 +1,125 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MusicPlayer : MonoBehaviour
 {
-    // Istanza unica (singleton) del MusicPlayer
-    // Permette di avere un solo player persistente tra le scene
     public static MusicPlayer Instance;
 
-    // Riferimento all'AudioSource che riproduce la musica
+    [Header("Audio")]
     public AudioSource audioSource;
-
-    // Elenco delle tracce musicali disponibili
     public AudioClip[] tracks;
 
-    // Riferimenti ai controlli UI (opzionali)
-    [Header("UI Controls (optional)")]
-    public Button playPauseButton;
-    public Button nextButton;
-    public Button muteButton;
-    public Slider volumeSlider;
-    public Text trackNameText;
-
-    // Indice della traccia attualmente in riproduzione
     private int currentTrack = 0;
-
-    // Stato di "mute" (vero = silenziato)
+    private bool isPaused = false;
     private bool isMuted = false;
+    private bool isFading = false;
 
-    // Metodo Awake()
-    // Eseguito prima di Start(): gestisce la persistenza e il singleton
+    private float userVolume = 0.2f;
+
     void Awake()
     {
-        // Se esiste già un'altra istanza del MusicPlayer, distrugge il duplicato
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        // Imposta questa come istanza principale
         Instance = this;
-
-        // Mantiene l'oggetto tra le scene (non viene distrutto)
         DontDestroyOnLoad(gameObject);
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+                audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        // 👇 Permette di suonare anche quando il gioco è in pausa
+        audioSource.ignoreListenerPause = true;
+
+        float savedVolume = PlayerPrefs.GetFloat("MusicVolume", 0.2f);
+        audioSource.volume = savedVolume;
+        userVolume = savedVolume;
+        audioSource.loop = false;
+        audioSource.playOnAwake = false;
     }
 
-    // Metodo Start()
-    // Inizializza il player e collega la UI
     void Start()
     {
-        // Controlla che ci siano tracce assegnate
         if (tracks == null || tracks.Length == 0)
         {
-            Debug.LogWarning("MusicPlayer: nessuna traccia assegnata!");
+            Debug.LogWarning("MusicPlayer: nessuna traccia trovata!");
             return;
         }
 
-        // Se il volume è 0, imposta un valore di default (0.5)
-        if (audioSource.volume == 0)
-            audioSource.volume = 0.5f;
-
-        // Se esiste lo slider, sincronizzalo con il volume corrente
-        if (volumeSlider != null)
-            volumeSlider.value = audioSource.volume;
-
-        // Imposta e avvia la prima traccia
         audioSource.clip = tracks[currentTrack];
         audioSource.Play();
 
-        // Aggiorna il nome della traccia nella UI
-        UpdateTrackName();
-
-        // Collega i pulsanti UI, se presenti nella scena
-        if (playPauseButton != null)
-            playPauseButton.onClick.AddListener(TogglePlayPause);
-
-        if (nextButton != null)
-            nextButton.onClick.AddListener(NextTrack);
-
-        if (muteButton != null)
-            muteButton.onClick.AddListener(ToggleMute);
-
-        if (volumeSlider != null)
-            volumeSlider.onValueChanged.AddListener(ChangeVolume);
+        StartCoroutine(FadeIn(audioSource, userVolume, 1f));
     }
 
-    // Metodo TogglePlayPause()
-    // Gestisce la riproduzione o la pausa del brano corrente
-    void TogglePlayPause()
+    void Update()
+    {
+        if (audioSource == null)
+            return;
+
+        // Quando finisce naturalmente → passa al prossimo brano
+        if (!audioSource.isPlaying && !isPaused && !isMuted && audioSource.clip != null && !isFading)
+        {
+            NextTrack();
+        }
+    }
+
+    public void TogglePlayPause()
     {
         if (audioSource == null)
             return;
 
         if (audioSource.isPlaying)
+        {
             audioSource.Pause();
+            isPaused = true;
+        }
         else
+        {
             audioSource.Play();
+            isPaused = false;
+        }
     }
 
-    // Metodo NextTrack()
-    // Passa alla traccia successiva con un effetto di fade
-    void NextTrack()
+    public bool IsPlaying()
     {
-        if (tracks == null || tracks.Length == 0)
+        return audioSource != null && audioSource.isPlaying;
+    }
+
+    public void NextTrack()
+    {
+        if (tracks == null || tracks.Length == 0 || audioSource == null)
             return;
 
+        StopAllCoroutines();
+        isFading = false;
+
         currentTrack = (currentTrack + 1) % tracks.Length;
-        StartCoroutine(FadeOutIn(tracks[currentTrack], 1f)); // 1 secondo di transizione
+        Debug.Log($"▶ NextTrack(): {tracks[currentTrack].name}");
+        StartCoroutine(FadeOutIn(tracks[currentTrack], 0.6f));
     }
 
-    // Metodo ToggleMute()
-    // Attiva o disattiva il mute del suono
-    void ToggleMute()
+    public void PreviousTrack()
+    {
+        if (tracks == null || tracks.Length == 0 || audioSource == null)
+            return;
+
+        StopAllCoroutines();
+        isFading = false;
+
+        currentTrack = (currentTrack - 1 + tracks.Length) % tracks.Length;
+        Debug.Log($"⏮ PreviousTrack(): {tracks[currentTrack].name}");
+        StartCoroutine(FadeOutIn(tracks[currentTrack], 0.6f));
+    }
+
+    public void ToggleMute()
     {
         if (audioSource == null)
             return;
@@ -121,53 +128,90 @@ public class MusicPlayer : MonoBehaviour
         audioSource.mute = isMuted;
     }
 
-    // Metodo ChangeVolume()
-    // Aggiorna il volume in base al valore dello slider
-    void ChangeVolume(float value)
+    public void ChangeVolume(float value)
     {
         if (audioSource == null)
             return;
-        audioSource.volume = value;
+
+        userVolume = Mathf.Clamp01(value);
+        audioSource.volume = userVolume;
+
+        PlayerPrefs.SetFloat("MusicVolume", userVolume);
+        PlayerPrefs.Save();
     }
 
-    // Metodo UpdateTrackName()
-    // Aggiorna il testo del nome brano nella UI
-    void UpdateTrackName()
+    public string GetCurrentTrackName()
     {
-        if (trackNameText != null && tracks != null && tracks.Length > 0)
-            trackNameText.text = "Now Playing: " + tracks[currentTrack].name;
+        return audioSource != null && audioSource.clip != null ? audioSource.clip.name : "(none)";
     }
 
-    // Coroutine FadeOutIn()
-    // Effettua una transizione morbida tra due brani (fade-out e fade-in)
-    IEnumerator FadeOutIn(AudioClip newClip, float fadeTime)
+    IEnumerator FadeOutIn(AudioClip newClip, float duration)
     {
         if (audioSource == null || newClip == null)
             yield break;
 
-        float startVolume = audioSource.volume;
+        isFading = true;
+        float startVol = audioSource.volume;
 
-        // Fade-out: riduce progressivamente il volume
-        for (float v = startVolume; v > 0; v -= Time.deltaTime / fadeTime)
+        // Fade-out indipendente dal TimeScale
+        float t = 0f;
+        while (t < duration * 0.5f)
         {
-            audioSource.volume = v;
+            if (audioSource == null)
+                yield break;
+            t += Time.unscaledDeltaTime; // indipendente dal Time.timeScale
+            audioSource.volume = Mathf.Lerp(startVol, 0f, t / (duration * 0.5f));
             yield return null;
         }
 
-        // Cambia clip e riproduce la nuova traccia
+        // Cambio clip e riavvio anche in pausa
         audioSource.clip = newClip;
+        audioSource.time = 0f;
         audioSource.Play();
-        UpdateTrackName();
 
-        // Fade-in: aumenta gradualmente il volume al valore target
-        float targetVolume = (volumeSlider != null) ? volumeSlider.value : startVolume;
-        for (float v = 0; v < targetVolume; v += Time.deltaTime / fadeTime)
+        // Fade-in
+        t = 0f;
+        while (t < duration * 0.5f)
         {
-            audioSource.volume = v;
+            if (audioSource == null)
+                yield break;
+            t += Time.unscaledDeltaTime; 
+            audioSource.volume = Mathf.Lerp(0f, userVolume, t / (duration * 0.5f));
             yield return null;
         }
 
-        // Assicura che il volume finale sia preciso
-        audioSource.volume = targetVolume;
+        audioSource.volume = userVolume;
+        isFading = false;
+    }
+
+    IEnumerator FadeIn(AudioSource source, float targetVolume, float duration)
+    {
+        if (source == null)
+            yield break;
+
+        isFading = true;
+        source.volume = 0f;
+        float t = 0f;
+
+        while (t < duration)
+        {
+            t += Time.unscaledDeltaTime; // fade indipendente dal TimeScale
+            source.volume = Mathf.Lerp(0f, userVolume, t / duration);
+            yield return null;
+        }
+
+        source.volume = userVolume;
+        isFading = false;
+    }
+
+    public void UpdateTrackNameUI(TMP_Text label)
+    {
+        if (label == null)
+            return;
+
+        label.text =
+            audioSource != null && audioSource.clip != null
+                ? $"Now Playing: {audioSource.clip.name}"
+                : "Now Playing: (none)";
     }
 }

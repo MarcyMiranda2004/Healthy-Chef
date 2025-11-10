@@ -77,9 +77,23 @@ Healthy-Chef/
 ## 👥 **Autori** 👥
 
 - **Marcello Miranda** - *https://github.com/MarcyMiranda2004*
+  (Scittura dei dialoghi, gestione di animazioni e logica dei testi)
+  
 - **Alessandro Imbriani** - *https://github.com/Rela45*
+  (Gestione versionamento, Management Generale, Quality Reviev)
+  
 - **Gabriele Frangiosa** - *https://github.com/DemonBloodstorm*
+  (Minigiochi, Reperiemnto di Sprite e Musiche, Creazione della Option UI)
 
+---
+## 📝 **ToDo** 📝
+- Miglioramento della qualita delle animazioni
+- Bottone di Skip per saltare minigiochi o scene a piacimento
+- Aggiunta di aromenti
+- Nuovi minigiochi
+- Save point tra le scene
+- Scelta dei pronomi del giocator*
+- Modalità extra
 ---
 
 ## 📸 **Immagini**

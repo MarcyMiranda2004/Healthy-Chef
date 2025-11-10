@@ -46,30 +46,33 @@ Per far funzionare il gioco sul tuo PC avrai bisogno di installare:
 Healthy-Chef/
 ├─ .gitignore
 ├─ REDME.md
-├─ bin/                     # Output compilazioni .NET
-├─ obj/                     # File temporanei di compilazione
-│
+├─ bin/                         # Output compilazioni .NET
+├─ obj/                         # File temporanei di compilazione
+|
 ├─ Project/
-│  ├─ Assets/               # Risorse di gioco principali
-│  │  ├─ Animations/        # Controller e clip per animazioni (es. Chef Tony, DialogPanel)
-│  │  ├─ Audio/             # Colonne sonore e musiche ambientali
-│  │  ├─ Materials/         # Materiali utilizzati nei prefab e scene
-│  │  ├─ Prefab/            # Oggetti prefab (cibo, UI, manager, ecc.)
-│  │  ├─ Resources/
-│  │  │  └─ Dialogues/      # Testi e script narrativi delle varie sezioni
-│  │  ├─ Scenes/            # Scene principali (Menu, Quiz, Piramide, Minigame, ecc.)
-│  │  ├─ Script/            # Script C# (GameManager, DialogManager, MusicPlayer, ecc.)
-│  │  ├─ Sprite/            # Grafica (Tony, cibi, UI, sfondi)
-│  │  ├─ TextMesh Pro/      # Font, materiali e risorse per UI testuale
-│  │  ├─ Settings/          # Configurazioni URP e template di scena
-│  │  └─ ToRemove/          # Script o file in disuso
+│ ├─ Assets/                    # _Risorse di gioco principali_
+| | |
+│ │ ├─ Animations/              # _Controller e clip per animazioni (es. Chef Tony, DialogPanel)_
+│ │ ├─ Audio/                   # _Colonne sonore e musiche ambientali_
+│ │ ├─ Materials/               # _Materiali utilizzati nei prefab e scene_
+│ │ ├─ Prefab/                  # _Oggetti prefab (cibo, UI, manager, ecc.)_
+| | |
+│ │ ├─ Resources/
+│ │ │ └─ Dialogues/             # _Testi e script narrativi delle varie sezioni_
+| | |
+│ │ ├─ Scenes/                  # _Scene principali (Menu, Quiz, Piramide, Minigame, ecc.)_
+│ │ ├─ Script/                  # _Script C# (GameManager, DialogManager, MusicPlayer, ecc.)_
+│ │ ├─ Sprite/                  # _Grafica (Tony, cibi, UI, sfondi)_
+│ │ ├─ TextMesh Pro/            # _Font, materiali e risorse per UI testuale_
+│ │ ├─ Settings/                # _Configurazioni URP e template di scena_
+│ │ └─ ToRemove/                # _Script o file in disuso_
+│ │
+│ ├─ Library/                   # _Cache e database Unity (generati automaticamente)_
+│ ├─ Packages/                  # _Dipendenze del progetto Unity_
+│ ├─ ProjectSettings/           # _Impostazioni di progetto Unity_
+│ └─ .vscode/                   # _Configurazione editor VS Code_
 │
-│  ├─ Library/              # Cache e database Unity (generati automaticamente)
-│  ├─ Packages/             # Dipendenze del progetto Unity
-│  ├─ ProjectSettings/      # Impostazioni di progetto Unity
-│  └─ .vscode/              # Configurazione editor VS Code
-│
-└─ repo-tree.txt            # Mappa generata della repo
+└─ repo-tree.txt                # _Mappa generata della repo_
 ```
 
 ---

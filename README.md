@@ -87,6 +87,6 @@ Healthy-Chef/
 
 ![Presentazione](images\Presentazione.png)
 
-![Benvenuti](images\Benvenuti.png)
+![Benvenuti](images/Benvenuti.png)
 
-![Minigame](images\Minigame.png)
+![Minigame](images/Minigame.png)

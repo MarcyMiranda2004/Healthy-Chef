@@ -95,6 +95,8 @@ pnpm-debug.log*
 .cache/
 .next/
 out/
+build/
+dist/
 coverage/
 logs/
 *.tsbuildinfo

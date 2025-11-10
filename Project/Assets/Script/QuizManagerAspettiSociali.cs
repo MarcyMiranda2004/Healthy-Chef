@@ -65,7 +65,9 @@ public class QuizManagerAspettiSociali : MonoBehaviour
                 btn.gameObject.SetActive(false);
             await Task.Delay(2000);
             Debug.LogError("METTETE IL NOME DELLA SCENA IN CHANGE SCENE SOTTO QUESTO ERROR LOG");
-            GameManager.Instance.ChangeScene("[ToDo Final Scene]");
+            Debug.Log("sono qui;");
+            GameManager.Instance.ChangeScene("SalutiScene");
+            Debug.Log("non sono qui;");
             return;
         }
 

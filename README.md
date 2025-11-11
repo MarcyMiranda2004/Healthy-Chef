@@ -80,10 +80,12 @@ Healthy-Chef/
   (Scittura dei dialoghi, gestione di animazioni e logica dei testi)
   
 - **Alessandro Imbriani** - *https://github.com/Rela45*
-  (Gestione versionamento, Management Generale, Quality Reviev)
+  (Gestione versionamento, Management Generale, Quality Review, Bug Fixing)
   
 - **Gabriele Frangiosa** - *https://github.com/DemonBloodstorm*
-  (Minigiochi, Reperiemnto di Sprite e Musiche, Creazione della Option UI)
+  (Minigiochi, Reperimento di Sprite e Musiche, Creazione della Option UI)
+
+## Link ClickUP - https://app.clickup.com/90151920272/v/b/t/90151920272
 
 ---
 ## 📝 **ToDo** 📝
